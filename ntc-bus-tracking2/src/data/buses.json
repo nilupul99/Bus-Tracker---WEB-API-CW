@@ -1,0 +1,49 @@
+{
+  "buses": [
+    {
+      "busNumber": "NTC-001",
+      "route": "Kathmandu-Pokhara",
+      "capacity": 45,
+      "currentLocation": {
+        "coordinates": [83.9856, 28.2096]
+      },
+      "status": "active"
+    },
+    {
+      "busNumber": "NTC-002",
+      "route": "Kathmandu-Chitwan",
+      "capacity": 40,
+      "currentLocation": {
+        "coordinates": [84.5159, 27.5291]
+      },
+      "status": "active"
+    },
+    {
+      "busNumber": "NTC-003",
+      "route": "Kathmandu-Butwal",
+      "capacity": 42,
+      "currentLocation": {
+        "coordinates": [83.4484, 27.7009]
+      },
+      "status": "maintenance"
+    },
+    {
+      "busNumber": "NTC-004",
+      "route": "Kathmandu-Biratnagar",
+      "capacity": 45,
+      "currentLocation": {
+        "coordinates": [87.2701, 26.4525]
+      },
+      "status": "active"
+    },
+    {
+      "busNumber": "NTC-005",
+      "route": "Kathmandu-Birgunj",
+      "capacity": 40,
+      "currentLocation": {
+        "coordinates": [84.8824, 27.0104]
+      },
+      "status": "active"
+    }
+  ]
+}

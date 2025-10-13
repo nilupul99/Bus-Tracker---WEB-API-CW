@@ -1,0 +1,35 @@
+{
+  "name": "ntc-bus-tracking",
+  "version": "1.0.0",
+  "description": "NTC Bus Tracking API - Real-time bus tracking system",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "debug": "cross-env NODE_ENV=development nodemon --inspect src/server.js"
+  },
+  "keywords": [
+    "bus",
+    "tracking",
+    "api",
+    "gps",
+    "mongodb",
+    "express"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "helmet": "^7.0.0",
+  "mongoose": "^8.19.0",
+  "pg": "^8.11.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "cross-env": "^10.1.0",
+    "nodemon": "^3.1.10"
+  }
+}
