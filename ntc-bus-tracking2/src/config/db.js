@@ -4,7 +4,13 @@ import path from 'path';
 
 const { Pool } = pkg;
 
-const pool = new Pool({
+// Support Render's DATABASE_URL or individual PG_* env vars
+const connectionString = process.env.DATABASE_URL || undefined;
+
+const pool = connectionString ? new Pool({
+  connectionString,
+  ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
+}) : new Pool({
   host: process.env.PG_HOST || 'localhost',
   port: process.env.PG_PORT ? Number(process.env.PG_PORT) : 5432,
   user: process.env.PG_USER || 'postgres',
@@ -25,7 +31,7 @@ const ensureSchema = async () => {
       throw err;
     }
   } else {
-    console.warn('⚠️ init.sql not found; ensure your schema is present');
+    console.warn('init.sql not found; ensure your schema is present');
   }
 };
 

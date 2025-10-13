@@ -1,4 +1,7 @@
 -- Initialize database and create buses table
+-- Ensure PostGIS extension is available
+CREATE EXTENSION IF NOT EXISTS postgis;
+
 CREATE TABLE IF NOT EXISTS buses (
   id SERIAL PRIMARY KEY,
   bus_number VARCHAR(100) UNIQUE NOT NULL,

@@ -97,7 +97,7 @@ app.use((err, req, res, next) => {
 
 // Graceful shutdown handling
 const server = app.listen(process.env.PORT || 5000, () => {
-  console.log(` Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT || 5000}`);
+  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT || 5000}`);
 });
 
 process.on('unhandledRejection', (err) => {
@@ -109,6 +109,6 @@ process.on('unhandledRejection', (err) => {
 process.on('SIGTERM', () => {
   console.log('SIGTERM received. Shutting down gracefully');
   server.close(() => {
-    console.log('💤 Process terminated');
+    console.log('Process terminated');
   });
 });
