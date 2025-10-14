@@ -1,47 +1,26 @@
 import pkg from 'pg';
-import fs from 'fs';
-import path from 'path';
-
 const { Pool } = pkg;
 
-// Support Render's DATABASE_URL or individual PG_* env vars
-const connectionString = process.env.DATABASE_URL || undefined;
-
-const pool = connectionString ? new Pool({
-  connectionString,
-  ssl: process.env.DB_SSL === 'false' ? false : { rejectUnauthorized: false }
-}) : new Pool({
-  host: process.env.PG_HOST || 'localhost',
-  port: process.env.PG_PORT ? Number(process.env.PG_PORT) : 5432,
-  user: process.env.PG_USER || 'postgres',
-  password: process.env.PG_PASSWORD || 'postgres',
-  database: process.env.PG_DATABASE || 'ntc_bus_tracking'
-});
-
-// Ensure the buses table exists (safety for non-docker runs)
-const ensureSchema = async () => {
-  const initPath = path.resolve(process.cwd(), 'seeds', 'init.sql');
-  if (fs.existsSync(initPath)) {
-    const sql = fs.readFileSync(initPath, 'utf8');
-    try {
-      await pool.query(sql);
-      console.log('PostgreSQL schema ensured');
-    } catch (err) {
-      console.error('Failed to ensure PostgreSQL schema:', err.message);
-      throw err;
-    }
-  } else {
-    console.warn('init.sql not found; ensure your schema is present');
-  }
-};
+let pool;
 
 const connectDB = async () => {
   try {
-    await pool.connect();
-    console.log('Connected to PostgreSQL');
-    await ensureSchema();
-  } catch (err) {
-    console.error('PostgreSQL connection error:', err.message);
+    // Use DATABASE_URL for Supabase connection
+    pool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false // Required for Supabase
+      }
+    });
+
+    // Test connection
+    const client = await pool.connect();
+    console.log('✅ Connected to Supabase PostgreSQL');
+    client.release();
+    
+    return pool;
+  } catch (error) {
+    console.error('❌ Database connection failed:', error.message);
     process.exit(1);
   }
 };

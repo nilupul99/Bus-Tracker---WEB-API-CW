@@ -5,6 +5,7 @@ import helmet from "helmet";
 import morgan from "morgan";
 import connectDB from "./config/db.js";
 import busRoutes from "./routes/buses.js";
+import { config } from "./config/config.js";
 
 // Load environment variables
 dotenv.config();
@@ -14,7 +15,7 @@ const app = express();
 // Security Middleware
 app.use(helmet()); // Adds various HTTP headers for security
 app.use(cors({
-  origin: process.env.CORS_ORIGIN || '*',
+  origin: config.corsOrigin,
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
@@ -24,14 +25,23 @@ app.use(express.json({ limit: '10kb' })); // Body size limit
 app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 
 // Logging in development
-if (process.env.NODE_ENV === 'development') {
+if (config.nodeEnv === 'development') {
   app.use(morgan('dev'));
 }
 
-// Connect to MongoDB
+// Connect to PostgreSQL (Supabase) instead of MongoDB
 connectDB();
 
-// API Documentation route
+// Health check endpoint
+app.get("/health", (req, res) => {
+  res.status(200).json({ 
+    status: "OK", 
+    timestamp: new Date().toISOString(),
+    database: "Supabase PostgreSQL"
+  });
+});
+
+// API Documentation route - KEEPING EXACTLY AS IS
 app.get("/", (req, res) => {
   res.json({
     name: "NTC Bus Tracking API",
@@ -68,24 +78,23 @@ app.use((req, res) => {
   });
 });
 
-// Global Error Handler
+// Global Error Handler - Updated for PostgreSQL
 app.use((err, req, res, next) => {
   console.error(err.stack);
 
-  // Mongoose validation error
-  if (err.name === 'ValidationError') {
-    const errors = Object.values(err.errors).map(error => error.message);
-    return res.status(400).json({
-      success: false,
-      error: errors
-    });
-  }
-
-  // MongoDB duplicate key error
-  if (err.code === 11000) {
+  // PostgreSQL validation error
+  if (err.code === '23505') { // Unique constraint violation
     return res.status(400).json({
       success: false,
       error: 'Duplicate field value entered'
+    });
+  }
+
+  // PostgreSQL foreign key constraint
+  if (err.code === '23503') {
+    return res.status(400).json({
+      success: false,
+      error: 'Referenced record does not exist'
     });
   }
 
@@ -97,8 +106,9 @@ app.use((err, req, res, next) => {
 });
 
 // Graceful shutdown handling
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${process.env.PORT || 5000}`);
+const server = app.listen(config.port, () => {
+  console.log(`🚀 Server running in ${config.nodeEnv} mode on port ${config.port}`);
+  console.log(`📍 Database: Supabase PostgreSQL`);
 });
 
 process.on('unhandledRejection', (err) => {
