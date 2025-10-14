@@ -42,6 +42,7 @@ app.get("/", (req, res) => {
         operations: {
           list: "GET /api/buses",
           create: "POST /api/buses",
+          getOne: "GET /api/buses/:route",
           getOne: "GET /api/buses/:id",
           update: "PUT /api/buses/:id",
           delete: "DELETE /api/buses/:id",
