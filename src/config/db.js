@@ -6,34 +6,51 @@ let pool;
 
 const connectDB = async () => {
   try {
-    // Use DATABASE_URL if available (for production), otherwise use individual vars
-    const dbConfig = process.env.DATABASE_URL ? {
-      connectionString: process.env.DATABASE_URL,
-      ssl: process.env.NODE_ENV === 'production' ? {
-        rejectUnauthorized: false
-      } : false
-    } : {
-      host: config.database.host,
-      port: config.database.port,
-      database: config.database.database,
-      user: config.database.user,
-      password: config.database.password,
-      ssl: process.env.NODE_ENV === 'production' ? {
-        rejectUnauthorized: false
-      } : false
-    };
+    let poolConfig;
 
-    // Add connection pool settings and force IPv4
-    const poolConfig = {
-      ...dbConfig,
-      max: 10,
-      idleTimeoutMillis: 30000,
-      connectionTimeoutMillis: 15000,
-      family: 4, // Add this line to force IPv4 connections
-      options: '-c default_transaction_isolation=read_committed'
-    };
+    if (process.env.DATABASE_URL) {
+      // Parse the DATABASE_URL and reconstruct with individual properties
+      // This allows us to set family: 4 properly
+      const url = new URL(process.env.DATABASE_URL);
+      
+      poolConfig = {
+        host: url.hostname,
+        port: parseInt(url.port) || 5432,
+        database: url.pathname.slice(1), // Remove leading slash
+        user: url.username,
+        password: url.password,
+        ssl: process.env.NODE_ENV === 'production' ? {
+          rejectUnauthorized: false
+        } : false,
+        max: 10,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 15000,
+        family: 4, // Force IPv4
+        options: '-c default_transaction_isolation=read_committed'
+      };
+    } else {
+      // Use individual environment variables
+      poolConfig = {
+        host: config.database.host,
+        port: config.database.port,
+        database: config.database.database,
+        user: config.database.user,
+        password: config.database.password,
+        ssl: process.env.NODE_ENV === 'production' ? {
+          rejectUnauthorized: false
+        } : false,
+        max: 10,
+        idleTimeoutMillis: 30000,
+        connectionTimeoutMillis: 15000,
+        family: 4, // Force IPv4
+        options: '-c default_transaction_isolation=read_committed'
+      };
+    }
 
     console.log('🔗 Attempting database connection...');
+    console.log('🌐 Host:', poolConfig.host);
+    console.log('🔌 Port:', poolConfig.port);
+    console.log('🔧 Family:', poolConfig.family);
     
     pool = new Pool(poolConfig);
 
