@@ -1,37 +1,50 @@
 import pkg from 'pg';
 const { Pool } = pkg;
+import { config } from './config.js';
 
 let pool;
 
 const connectDB = async () => {
   try {
-    // Use the direct connection string with correct password
-    const config = {
-      host: 'db.rtyqwxpkeuemxbphotwl.supabase.co',
-      port: 5432,
-      database: 'postgres',
-      user: 'postgres',
-      password: '5rZD9zKlDCDo5TRj',
-      ssl: {
+    // Use DATABASE_URL if available (for production), otherwise use individual vars
+    const dbConfig = process.env.DATABASE_URL ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: process.env.NODE_ENV === 'production' ? {
         rejectUnauthorized: false
-      },
-      // Connection pool settings
+      } : false
+    } : {
+      host: config.database.host,
+      port: config.database.port,
+      database: config.database.database,
+      user: config.database.user,
+      password: config.database.password,
+      ssl: process.env.NODE_ENV === 'production' ? {
+        rejectUnauthorized: false
+      } : false
+    };
+
+    // Add connection pool settings and force IPv4
+    const poolConfig = {
+      ...dbConfig,
       max: 10,
       idleTimeoutMillis: 30000,
       connectionTimeoutMillis: 15000,
-      // Force IPv4 to avoid IPv6 issues
-      family: 4
+      family: 4, // Add this line to force IPv4 connections
+      options: '-c default_transaction_isolation=read_committed'
     };
 
     console.log('🔗 Attempting database connection...');
-    console.log('🌐 Host:', config.host);
-    console.log('🔌 Port:', config.port);
     
-    pool = new Pool(config);
+    pool = new Pool(poolConfig);
+
+    // Set error handler for the pool
+    pool.on('error', (err) => {
+      console.error('Unexpected error on idle client:', err);
+    });
 
     // Test connection
     const client = await pool.connect();
-    console.log('✅ Connected to Supabase PostgreSQL');
+    console.log('✅ Connected to PostgreSQL database');
     
     // Test query
     const result = await client.query('SELECT NOW() as current_time, version()');
