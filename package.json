@@ -5,16 +5,16 @@
   "main": "src/server.js",
   "type": "module",
   "scripts": {
-  "start": "node src/server.js",
-  "dev": "cross-env NODE_ENV=development nodemon src/server.js",
-  "debug": "cross-env NODE_ENV=development nodemon --inspect src/server.js"
+    "start": "node src/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon src/server.js",
+    "debug": "cross-env NODE_ENV=development nodemon --inspect src/server.js"
   },
   "keywords": [
     "bus",
     "tracking",
     "api",
     "gps",
-    "mongodb",
+    "appwrite",
     "express"
   ],
   "author": "",
@@ -24,9 +24,8 @@
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "helmet": "^7.0.0",
-  "mongoose": "^8.19.0",
-  "pg": "^8.11.0",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "node-appwrite": "^13.0.0"
   },
   "devDependencies": {
     "cross-env": "^10.1.0",

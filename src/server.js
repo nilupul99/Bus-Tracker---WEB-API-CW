@@ -3,7 +3,7 @@ import dotenv from "dotenv";
 import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
-import connectDB from "./config/db.js";
+import connectAppwrite from "./config/appwrite.js";
 import busRoutes from "./routes/buses.js";
 import { config } from "./config/config.js";
 
@@ -29,30 +29,30 @@ if (config.nodeEnv === 'development') {
   app.use(morgan('dev'));
 }
 
-// Connect to PostgreSQL (Supabase) instead of MongoDB
-connectDB();
+// Connect to Appwrite
+connectAppwrite();
 
 // Health check endpoint
 app.get("/health", (req, res) => {
   res.status(200).json({ 
     status: "OK", 
     timestamp: new Date().toISOString(),
-    database: "Supabase PostgreSQL"
+    database: "Appwrite"
   });
 });
 
-// API Documentation route - KEEPING EXACTLY AS IS
+// API Documentation route
 app.get("/", (req, res) => {
   res.json({
     name: "NTC Bus Tracking API",
     version: "1.0.0",
+    database: "Appwrite",
     endpoints: {
       buses: {
         base: "/api/buses",
         operations: {
           list: "GET /api/buses",
           create: "POST /api/buses",
-          getOne: "GET /api/buses/:route",
           getOne: "GET /api/buses/:id",
           update: "PUT /api/buses/:id",
           delete: "DELETE /api/buses/:id",
@@ -78,23 +78,22 @@ app.use((req, res) => {
   });
 });
 
-// Global Error Handler - Updated for PostgreSQL
+// Global Error Handler
 app.use((err, req, res, next) => {
   console.error(err.stack);
 
-  // PostgreSQL validation error
-  if (err.code === '23505') { // Unique constraint violation
+  // Appwrite specific errors
+  if (err.code === 409) {
     return res.status(400).json({
       success: false,
       error: 'Duplicate field value entered'
     });
   }
 
-  // PostgreSQL foreign key constraint
-  if (err.code === '23503') {
-    return res.status(400).json({
+  if (err.code === 404) {
+    return res.status(404).json({
       success: false,
-      error: 'Referenced record does not exist'
+      error: 'Resource not found'
     });
   }
 
@@ -108,7 +107,7 @@ app.use((err, req, res, next) => {
 // Graceful shutdown handling
 const server = app.listen(config.port, () => {
   console.log(`🚀 Server running in ${config.nodeEnv} mode on port ${config.port}`);
-  console.log(`📍 Database: Supabase PostgreSQL`);
+  console.log(`📍 Database: Appwrite`);
 });
 
 process.on('unhandledRejection', (err) => {
