@@ -60,6 +60,14 @@ app.get("/", (req, res) => {
             create: "POST /api/buses/bulk/create",
             update: "PUT /api/buses/bulk/update",
             delete: "DELETE /api/buses/bulk/delete"
+          },
+          byBusNumber: {
+            get: "GET /api/buses/number/:busNumber",
+            update: "PUT /api/buses/number/:busNumber",
+            delete: "DELETE /api/buses/number/:busNumber"
+          },
+          byRoute: {
+            get: "GET /api/buses/route/:route"
           }
         }
       }
@@ -106,8 +114,7 @@ app.use((err, req, res, next) => {
 
 // Graceful shutdown handling
 const server = app.listen(config.port, () => {
-  console.log(`🚀 Server running in ${config.nodeEnv} mode on port ${config.port}`);
-  console.log(`📍 Database: Appwrite`);
+  console.log(`Server running in ${config.nodeEnv} mode on port ${config.port}`);
 });
 
 process.on('unhandledRejection', (err) => {

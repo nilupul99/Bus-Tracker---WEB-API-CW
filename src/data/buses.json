@@ -1,49 +1,277 @@
-{
-  "buses": [
-    {
-      "busNumber": "NTC-001",
-      "route": "Kathmandu-Pokhara",
-      "capacity": 45,
-      "currentLocation": {
-        "coordinates": [83.9856, 28.2096]
-      },
-      "status": "active"
+[
+  {
+    "busNumber": "CK01",
+    "route": "Colombo-Kandy",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
     },
-    {
-      "busNumber": "NTC-002",
-      "route": "Kathmandu-Chitwan",
-      "capacity": 40,
-      "currentLocation": {
-        "coordinates": [84.5159, 27.5291]
-      },
-      "status": "active"
+    "status": "active",
+    "startTime": "06:00",
+    "endTime": "22:00"
+  },
+  {
+    "busNumber": "CK02",
+    "route": "Colombo-Kandy",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [80.5042, 7.2906]
     },
-    {
-      "busNumber": "NTC-003",
-      "route": "Kathmandu-Butwal",
-      "capacity": 42,
-      "currentLocation": {
-        "coordinates": [83.4484, 27.7009]
-      },
-      "status": "maintenance"
+    "status": "active",
+    "startTime": "05:30",
+    "endTime": "21:30"
+  },
+  {
+    "busNumber": "CK03",
+    "route": "Colombo-Kandy",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
     },
-    {
-      "busNumber": "NTC-004",
-      "route": "Kathmandu-Biratnagar",
-      "capacity": 45,
-      "currentLocation": {
-        "coordinates": [87.2701, 26.4525]
-      },
-      "status": "active"
+    "status": "active",
+    "startTime": "07:00",
+    "endTime": "23:00"
+  },
+  {
+    "busNumber": "CK04",
+    "route": "Colombo-Kandy",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.5042, 7.2906]
     },
-    {
-      "busNumber": "NTC-005",
-      "route": "Kathmandu-Birgunj",
-      "capacity": 40,
-      "currentLocation": {
-        "coordinates": [84.8824, 27.0104]
-      },
-      "status": "active"
-    }
-  ]
-}
+    "status": "active",
+    "startTime": "06:30",
+    "endTime": "22:30"
+  },
+  {
+    "busNumber": "CK05",
+    "route": "Colombo-Kandy",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "05:45",
+    "endTime": "21:45"
+  },
+  {
+    "busNumber": "CG01",
+    "route": "Colombo-Galle",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "06:00",
+    "endTime": "22:00"
+  },
+  {
+    "busNumber": "CG02",
+    "route": "Colombo-Galle",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.2167, 6.0500]
+    },
+    "status": "active",
+    "startTime": "07:00",
+    "endTime": "23:00"
+  },
+  {
+    "busNumber": "CG03",
+    "route": "Colombo-Galle",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "06:30",
+    "endTime": "22:30"
+  },
+  {
+    "busNumber": "CG04",
+    "route": "Colombo-Galle",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.2167, 6.0500]
+    },
+    "status": "active",
+    "startTime": "05:45",
+    "endTime": "21:45"
+  },
+  {
+    "busNumber": "CG05",
+    "route": "Colombo-Galle",
+    "capacity": 52,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "07:15",
+    "endTime": "23:15"
+  },
+  {
+    "busNumber": "CM01",
+    "route": "Colombo-Matara",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "06:00",
+    "endTime": "22:00"
+  },
+  {
+    "busNumber": "CM02",
+    "route": "Colombo-Matara",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [80.5333, 5.9500]
+    },
+    "status": "active",
+    "startTime": "05:30",
+    "endTime": "21:30"
+  },
+  {
+    "busNumber": "CM03",
+    "route": "Colombo-Matara",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "07:00",
+    "endTime": "23:00"
+  },
+  {
+    "busNumber": "CM04",
+    "route": "Colombo-Matara",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.5333, 5.9500]
+    },
+    "status": "active",
+    "startTime": "06:15",
+    "endTime": "22:15"
+  },
+  {
+    "busNumber": "CM05",
+    "route": "Colombo-Matara",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "05:45",
+    "endTime": "21:45"
+  },
+  {
+    "busNumber": "CA01",
+    "route": "Colombo-Anuradhapura",
+    "capacity": 52,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "06:00",
+    "endTime": "22:00"
+  },
+  {
+    "busNumber": "CA02",
+    "route": "Colombo-Anuradhapura",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [80.4071, 8.3114]
+    },
+    "status": "active",
+    "startTime": "07:15",
+    "endTime": "23:15"
+  },
+  {
+    "busNumber": "CA03",
+    "route": "Colombo-Anuradhapura",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "06:30",
+    "endTime": "22:30"
+  },
+  {
+    "busNumber": "CA04",
+    "route": "Colombo-Anuradhapura",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.4071, 8.3114]
+    },
+    "status": "active",
+    "startTime": "05:45",
+    "endTime": "21:45"
+  },
+  {
+    "busNumber": "CA05",
+    "route": "Colombo-Anuradhapura",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [79.8612, 6.9271]
+    },
+    "status": "active",
+    "startTime": "07:00",
+    "endTime": "23:00"
+  },
+  {
+    "busNumber": "KN01",
+    "route": "Kandy-Nuwara Eliya",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.5042, 7.2906]
+    },
+    "status": "active",
+    "startTime": "06:00",
+    "endTime": "20:00"
+  },
+  {
+    "busNumber": "KN02",
+    "route": "Kandy-Nuwara Eliya",
+    "capacity": 42,
+    "currentLocation": {
+      "coordinates": [80.7800, 6.9700]
+    },
+    "status": "active",
+    "startTime": "07:00",
+    "endTime": "21:00"
+  },
+  {
+    "busNumber": "KN03",
+    "route": "Kandy-Nuwara Eliya",
+    "capacity": 50,
+    "currentLocation": {
+      "coordinates": [80.5042, 7.2906]
+    },
+    "status": "active",
+    "startTime": "06:30",
+    "endTime": "20:30"
+  },
+  {
+    "busNumber": "KN04",
+    "route": "Kandy-Nuwara Eliya",
+    "capacity": 45,
+    "currentLocation": {
+      "coordinates": [80.7800, 6.9700]
+    },
+    "status": "active",
+    "startTime": "05:45",
+    "endTime": "19:45"
+  },
+  {
+    "busNumber": "KN05",
+    "route": "Kandy-Nuwara Eliya",
+    "capacity": 48,
+    "currentLocation": {
+      "coordinates": [80.5042, 7.2906]
+    },
+    "status": "active",
+    "startTime": "07:30",
+    "endTime": "21:30"
+  }
+]

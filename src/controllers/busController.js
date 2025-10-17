@@ -139,3 +139,62 @@ export const deleteBus = async (req, res) => {
     res.status(500).json({ success: false, error: 'Server Error' });
   }
 };
+
+// New function to get bus by busNumber
+export const getBusByNumber = async (req, res) => {
+  try {
+    const bus = await BusModel.findByBusNumber(req.params.busNumber);
+    if (!bus) {
+      return res.status(404).json({
+        success: false,
+        error: 'Bus not found'
+      });
+    }
+    res.status(200).json({
+      success: true,
+      data: bus
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
+
+// New function to update bus by busNumber
+export const updateBusByNumber = async (req, res) => {
+  try {
+    const updatedBus = await BusModel.updateByBusNumber(req.params.busNumber, req.body);
+    if (!updatedBus) return res.status(404).json({ success: false, error: 'Bus not found' });
+    res.status(200).json({ success: true, data: updatedBus });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
+
+// New function to delete bus by busNumber
+export const deleteBusByNumber = async (req, res) => {
+  try {
+    const deleted = await BusModel.removeByBusNumber(req.params.busNumber);
+    if (!deleted) return res.status(404).json({ success: false, error: 'Bus not found' });
+    res.status(200).json({ success: true, data: {} });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};
+
+// New function to get buses by route
+export const getBusesByRoute = async (req, res) => {
+  try {
+    const buses = await BusModel.findByRoute(req.params.route);
+    res.status(200).json({
+      success: true,
+      count: buses.length,
+      data: buses
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'Server Error' });
+  }
+};

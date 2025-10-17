@@ -6,8 +6,8 @@ export const validateBus = (req, res, next) => {
   // Validate busNumber
   if (!busNumber) {
     errors.push('Bus number is required');
-  } else if (!/^NTC-\d{3}$/.test(busNumber)) {
-    errors.push('Bus number must be in format NTC-XXX where X is a digit');
+  } else if (typeof busNumber !== 'string' || !/^[A-Za-z0-9]{4}$/.test(busNumber)) {
+    errors.push('Bus number not valid!');
   }
 
   // Validate route

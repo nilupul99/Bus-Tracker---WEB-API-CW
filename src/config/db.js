@@ -47,10 +47,6 @@ const connectDB = async () => {
       };
     }
 
-    console.log('🔗 Attempting database connection...');
-    console.log('🌐 Host:', poolConfig.host);
-    console.log('🔌 Port:', poolConfig.port);
-    console.log('🔧 Family:', poolConfig.family);
     
     pool = new Pool(poolConfig);
 
@@ -61,22 +57,17 @@ const connectDB = async () => {
 
     // Test connection
     const client = await pool.connect();
-    console.log('✅ Connected to PostgreSQL database');
     
     // Test query
     const result = await client.query('SELECT NOW() as current_time, version()');
-    console.log('✅ Database test successful');
-    console.log('⏰ Server time:', result.rows[0].current_time);
     
     client.release();
     return pool;
   } catch (error) {
-    console.error('❌ Database connection failed:', error.message);
-    console.error('❌ Error code:', error.code);
     
     // Don't crash in production, allow app to start
     if (process.env.NODE_ENV === 'production') {
-      console.error('⚠️  Running without database. API will return errors for DB operations.');
+
       return null;
     } else {
       process.exit(1);
